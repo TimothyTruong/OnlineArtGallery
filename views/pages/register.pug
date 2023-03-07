@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Login
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    
+    //css
+        
+    body 
+
+        h1 Welcome to the T Art Gallery
+        h2 Register
+
+        div.text-center(id="login" style="display: inline-block , text-align: center;")
+            h1 Enter details below 
+            
+            label(for='name') Name
+            input(type='text', name='name', id='inputName' class="form-control" placeholder="Name" required)
+
+            label(for='username') Username
+            input(type='text', name='username', id='inputUsername' class="form-control" placeholder="Username" required)
+
+            
+            label(for='password') Password
+            input(type='password', name='password', id='inputPassword' class="form-control" placeholder="Password" required)
+
+            br 
+            button.btn.btn-lg.btn-primary(type='submit' id="submit") Register
+
+            h3 Already have an account?
+            a(href="/") Login
+
+        script(src="/register.js")

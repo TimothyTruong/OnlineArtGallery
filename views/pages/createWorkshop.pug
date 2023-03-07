@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Create Workshop
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+           
+    body   
+
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+
+        h1 Create a Workshop
+        
+        div.text-center(id="login" style="display: inline-block , text-align: center;")
+            h4(id="username") #{session.user.username}
+
+            label(for="title") Title 
+            input(type="text", name="title", id="inputTitle" class="form-control" placeholder="Title" required)
+
+            label(for="date") Date
+            input(type="date", name="date", id="inputDate" class="form-control" placeholder="Date" required)
+
+            label(for="description") Description
+            input(type="text", name="description", id="inputDescription" class="form-control" placeholder="Description" required)
+
+            button.btn.btn-lg.btn-primary.btn-block(type='submit' id="submit") Create Workshop
+
+        script(src="/createWorkshop.js")

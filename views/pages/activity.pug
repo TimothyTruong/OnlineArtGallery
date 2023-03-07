@@ -1,0 +1,71 @@
+//reviewed and/or liked artworks, for artist: created workshops and artworks
+doctype html
+html
+  head
+    title Activity
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+           
+    body   
+
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+        h1(style="text-align: center") Your Activity
+
+        div.text-center(id="login" style="display: inline-block , text-align: center;")
+            h3 Liked Artworks 
+                
+            if(activity.liked.length > 0)
+                for artwork in activity.liked 
+                    a(href='/artwork/' + artwork._id)
+                        img(src=artwork.image, style="width: 200px; height: 200px; margin: 10px")
+            else    
+                h4 You have not liked any artworks yet
+            
+            br
+            h3 Reviewed Artworks
+
+            if(activity.reviewed.length > 0)
+                for artwork in activity.reviewed 
+                    a(href='/artwork/' + artwork._id)
+                        img(src=artwork.image, style="width: 200px; height: 200px; margin: 10px")
+            else    
+                h4 You have not reviewed any artworks yet
+
+            br
+
+            h3 Workshops Enrolled In
+            for workshop in activity.enrolled
+                if(activity.enrolled != null)
+                    h5 #{workshop.title} - #{workshop.date}
+                    p #{workshop.description}
+                else
+                    h4 You have not enrolled in any workshops yet
+
+            if(session.user.accType == "artist")
+                h3 Created Workshops
+
+                if(activity.workshops.length > 0)
+                    for workshop in activity.workshops 
+                        h5 #{workshop.title} - #{workshop.date}
+                        p #{workshop.description}
+                else    
+                    h4 You have not created any workshops yet
+                br
+                h3 Created Artworks
+
+                if(activity.artworks.length > 0)
+                    for artwork in activity.artworks 
+                        a(href='/artwork/' + artwork._id)
+                            img(src=artwork.image, style="width: 200px; height: 200px; margin: 10px")
+                else    
+                    h4 You have not created any artworks yet
+            
+        script(src="/login.js")
+            
+
+

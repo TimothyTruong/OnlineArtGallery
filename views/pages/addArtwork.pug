@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title Add Artwork
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+    
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+           
+    body   
+
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+
+        h1 Add Artwork
+        
+        div.text-center(id="login" style="display: inline-block , text-align: center;")
+            h4(id="username") #{session.user.username}
+
+            label(for="name") Name 
+            input(type="text", name="name", id="inputName" class="form-control" placeholder="Name" required)
+
+            label(for="year") Year
+            input(type="number", name="year", id="inputYear" class="form-control" placeholder="Year" required)
+
+            label(for="medium") Medium
+            input(type="text", name="medium", id="inputMedium" class="form-control" placeholder="Medium" required)
+
+            label(for="category") Category
+            input(type="text", name="category", id="inputCategory" class="form-control" placeholder="Category" required)
+
+            label(for="description") Description
+            input(type="text", name="description", id="inputDescription" class="form-control" placeholder="Description" required)
+
+            label(for="image") Image
+            input(type="text", name="image", id="inputImage" class="form-control" placeholder="Image" required)
+
+            button.btn.btn-lg.btn-primary.btn-block(type='submit' id="submit") Add Artwork 
+
+        script(src="/addArtwork.js")

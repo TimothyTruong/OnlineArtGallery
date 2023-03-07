@@ -1,0 +1,70 @@
+doctype html
+html
+    head
+        title Profile
+    
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+    
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+     
+    body 
+
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+
+        div(style="text-align: center")
+            h1 #{artwork.name} 
+            h3 by #{artwork.artist}
+            a(href="/artist/"+ artist.userid) View Profile
+            br
+            img(src=artwork.image, style="width: 300px; height: 300px")
+            h2 #{artwork.year} - #{artwork.medium} - #{artwork.category}
+            p #{artwork.description}
+
+            h3 #{artwork.likes.length} Like(s)
+            
+            
+            //bootstrap toggle
+            - let liked = ""
+            if(artwork.likes.includes(session.user.username))
+                - liked = "Unike"
+            else 
+                - liked = "Like"
+
+            button.btn.btn-lg.btn-primary(id="like" value=""+ artwork._id + "" onclick="window.location.href='http://localhost:3000/like/" + artwork._id + "';") #{liked}
+            
+            br
+            br
+
+            h3 Reviews
+            - let counter = 1
+            if reviews != null
+                if(reviews.length > 0)
+                    for review in reviews
+                        if(review != null)
+                            br
+                            h5 #{counter} - #{review.username}
+                            p(id="textDelete") #{review.reviewText}
+                            if(session.user.username == review.username)
+                                button.primary(id="delete" onclick="deleteReview('" + review.reviewText + "', '"+ artwork._id + "')") Delete
+                            - counter++
+                            br
+            else
+                p No reviews yet
+
+            br 
+  
+            if(session.user.username != artwork.artist)
+                h5 Write Review
+                p(id="username" hidden) #{session.user.username}
+                p(id="artid" hidden) #{artwork._id}
+
+                textarea(id="reviewText" placeholder="Review Text")
+                br
+                br
+                button.btn.btn.btn-primary(id="review") Submit
+        
+        
+        script(src="/review.js")

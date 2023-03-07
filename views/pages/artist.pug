@@ -1,0 +1,58 @@
+doctype html 
+html
+    head 
+        title Art Gallery 
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+
+    body 
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+
+        h1(style="text-align: center") #{artist.name}'s Profile - Artist
+
+        div#profile(style="text-align: center")
+            h2(style="text-align: center") #{artist.name}
+            h3(style="text-align: center") #{artist.username}
+
+            if(session.user.following.includes(artist.userid))
+                button.btn.btn-lg.btn-primary(type=""  id="toggle" onclick="window.location.href='http://localhost:3000/unfollow/" + artist.userid + "';") Unfollow
+            else
+                button.btn.btn-lg.btn-primary(id="toggle" onclick="window.location.href='http://localhost:3000/follow/" + artist.userid + "';") Follow
+
+            br 
+            br 
+            h3 Works 
+
+            for art in artworks
+                div(style="text-align: center")
+                    h3 #{art.title}
+                    img(src=art.image, style="width: 300px; height: 300px")
+                    h4 #{art.year} - #{art.medium} - #{art.category}
+                    p #{art.description}
+                    a(href="/artwork/" + art._id) View                   
+
+            br 
+            br 
+            h3 Workshops
+            if(workshops != null)
+                for workshop in workshops 
+                    div(style="text-align: center")
+                        h4 #{workshop.title}
+                        h6 Hosted by #{workshop.hostedBy}
+                        p #{workshop.description}
+                        a(href="/enroll/" + workshop._id) Enroll
+                        br
+                        br
+                    
+            else
+                p This artist has hosted no workshops yet
+            
+
+
+        script(src="/login.js")
+    

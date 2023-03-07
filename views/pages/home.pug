@@ -1,0 +1,47 @@
+doctype html
+html 
+    head 
+        title Art Gallery
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    body 
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+        h1(style="text-align: center") #{session.user.name}'s Profile
+        
+        div#following(style="text-align: center")
+            if(following.length == 0)
+                h2(style="text-align: center") You are not following anyone
+            else
+                h2(style="text-align: center") You are following:
+
+                for user in following
+                    a(href="/artist/"+ user.userid) #{user.username} - #{user.name} 
+                    br
+                    
+            
+
+        button(type="submit" id="submit" disabled hidden) 
+
+        script(src="/login.js")
+
+
+
+
+//- div#search(class="container" style="display: flex, flex-direction: row, justify-content: space-evenly")
+        //-     div#search(class="container" style="display: flex, flex-direction: row, justify-content: space-evenly")
+        //-         h2 Search for an artist
+        //-         input(type='text', name='artist', id='inputArtist' class="form-control" placeholder="Artist" required)
+        //-         button.btn.btn-lg.btn-primary.btn-block(type='submit' id="submit") Search
+        //-     div#search(class="container" style="display: flex, flex-direction: row, justify-content: space-evenly")
+        //-         h2 Search for a painting
+        //-         input(type='text', name='painting', id='inputPainting' class="form-control" placeholder="Painting" required)
+        //-         button.btn.btn-lg.btn-primary.btn-block(type='submit' id="submit") Search
+        //-     div#search(class="container" style="display: flex, flex-direction: row, justify-content: space-evenly")
+        //-         h2 Search for a museum
+        //-         input(type='text', name='museum', id='inputMuseum' class="form-control" placeholder="Museum" required)
+        //-         button.btn.btn-lg.btn-primary.btn-block(type='submit' id="submit") Search

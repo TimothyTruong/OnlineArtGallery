@@ -1,0 +1,43 @@
+doctype html
+html
+    head
+        title Profile
+    
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+
+        script(src="/login.js")
+        script(src="/editAccount.js")
+           
+    body   
+
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+        h1 Account Information
+
+        div.text-center(id="login" style="display: inline-block , text-align: center;")
+            
+            h1= session.user.name
+
+            label(for='username') Username
+            input(type='text', name='username', id='inputUsername' class="form-control" value=session.user.username disabled)
+
+            
+            label(for='password') Password
+            input(type='password', name='password', id='inputPassword' class="form-control" value=session.user.password disabled)
+
+            br 
+
+            h4 Account Type - #{session.user.accType}
+            select(name="type" id="type" class="form-control" value="" + session.user.accType + "")
+                option(value="artist") Artist
+                option(value="patron") Patron
+            
+            br 
+
+            button.btn.btn-lg.btn-primary.btn-block(type='submit' id="save") Save
+        
+    

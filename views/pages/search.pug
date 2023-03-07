@@ -1,0 +1,28 @@
+doctype html 
+html
+    head 
+        title Art Gallery 
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
+
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+
+    body 
+        include ../partials/navbar
+        if(session.user.accType == "artist")
+            include ../partials/artistnav
+
+        h1(style="text-align: center") Search
+
+        input(type="text", id="search", placeholder="Search for artworks, artists, categories, etc...", style="width: 50%; margin: 0 auto; display: block;")
+        br
+        button.btn.btn-lg.btn-primary(type="submit", id="submit", style="margin: 0 auto; display: block;") Search
+
+        br
+        for art in artworks
+            div(style="text-align: center")
+                h3 #{art.title}
+                img(src=art.image, style="width: 300px; height: 300px")
+                h4 #{art.year} - #{art.medium} - #{art.category}
+                p #{art.description}
+                a(href="/artwork/" + art._id) View
